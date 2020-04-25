@@ -2,9 +2,9 @@ from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 import base64
 
+
 class SurveyUserInputLine(models.Model):
     _inherit = 'survey.user_input_line'
-
 
     answer_type = fields.Selection([
         ('text', 'Text'),
@@ -17,7 +17,7 @@ class SurveyUserInputLine(models.Model):
         ('audio', 'Audio')], string='Answer Type')
 
     value_gps = fields.Char(
-        string= 'GPS answer'
+        string='GPS answer'
     )
     value_audio = fields.Binary(
         string="Audio Answer"
@@ -36,8 +36,8 @@ class SurveyUserInputLine(models.Model):
                 'audio': bool(uil.value_audio)
             }
             if not fields_type.get(uil.answer_type, True):
-                raise ValidationError(_('The answer must be in the right type'))
-
+                raise ValidationError(
+                    _('The answer must be in the right type'))
 
     @api.model
     def save_line_gps(self, user_input_id, question, post, answer_tag):
@@ -62,7 +62,6 @@ class SurveyUserInputLine(models.Model):
             old_uil.create(vals)
         return True
 
-
     @api.model
     def save_line_audio(self, user_input_id, question, post, answer_tag):
         vals = {
@@ -73,7 +72,8 @@ class SurveyUserInputLine(models.Model):
         }
         if answer_tag in post and post[answer_tag].strip():
             # TODO
-            vals.update({'answer_type': 'audio', 'value_audio': base64.encodestring(post[answer_tag].read())})
+            vals.update({'answer_type': 'audio',
+                         'value_audio': post[answer_tag]})
         else:
             vals.update({'answer_type': None, 'skipped': True})
         old_uil = self.search([
