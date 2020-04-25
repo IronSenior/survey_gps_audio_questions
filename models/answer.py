@@ -33,7 +33,7 @@ class SurveyUserInputLine(models.Model):
                 'free_text': bool(uil.value_free_text),
                 'suggestion': bool(uil.value_suggested),
                 'gps': bool(uil.value_gps),
-                'audio': bool(uil.audio)
+                'audio': bool(uil.value_audio)
             }
             if not fields_type.get(uil.answer_type, True):
                 raise ValidationError(_('The answer must be in the right type'))
