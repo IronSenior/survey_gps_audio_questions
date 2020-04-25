@@ -9,8 +9,8 @@
         </template>
 
         <template id="gps" name="GPS box">
-            <!-- <input type="text" class="form-control" t-att-name="prefix"/> -->
-            <span>HOLA CARACOLA SOY UN GPS</span>
+            <input id="response_gps_button" type="hidden" class="form-control" t-att-name="prefix"/>
+            <button id="read_gps_button" type="button">Enviar posición GPS</button>
         </template>
 
         <template id="audio" name="AUDIO box">
