@@ -20,9 +20,17 @@ class SurveyQuestion(models.Model):
     def validate_gps(self, post, answer_tag):
         self.ensure_one()
         errors = {}
+        # Empty answer to mandatory self
+        if self.constr_mandatory and not post.get(answer_tag, "").strip():
+            errors.update({answer_tag: self.constr_error_msg})
+
         return errors
 
     def validate_audio(self, post, answer_tag):
         self.ensure_one()
         errors = {}
+        # Empty answer to mandatory self
+        if self.constr_mandatory and not post.get(answer_tag, "").strip():
+            errors.update({answer_tag: self.constr_error_msg})
         return errors
+
