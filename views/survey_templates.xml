@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="custom_question" inherit_id="survey.page">
+            <xpath expr="//div[@class='js_errzone alert alert-danger']" position="before">
+                <t t-if="question.type == 'gps'"><t t-call="survey_asl_question.gps"/></t>
+                <t t-if="question.type == 'audio'"><t t-call="survey_asl_question.audio"/></t>
+            </xpath>
+        </template>
+
+        <template id="gps" name="GPS box">
+            <!-- <input type="text" class="form-control" t-att-name="prefix"/> -->
+            <span>HOLA CARACOLA SOY UN GPS</span>
+        </template>
+
+        <template id="audio" name="AUDIO box">
+            <!-- <input type="text" class="form-control" t-att-name="prefix"/> -->
+            <span>HOLA CARACOLA SOY UN AUDIO</span>
+        </template>
+
+
+        <!--TODO: Vista de resultado y imprimible-->
+    </data>
+</odoo>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <record model="ir.ui.view" id="survey_question_form">
+        <field name="name">Form view for survey question</field>
+        <field name="model">survey.question</field>
+        <field name="inherit_id" ref="survey.survey_question_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='col-lg-6 offset-lg-3 o_preview_questions']" position="inside">
+                <field name="type" invisible="1"/>
+                <!-- GPS Zone -->
+                <div attrs="{'invisible': [('type', '!=', 'gps')]}">
+                    <i class="fa fa-align-justify fa-4x" role="img" aria-label="GPS" title="GPS"/>
+                </div>
+                <!-- Audio Zone -->
+                <div attrs="{'invisible': [('type', '!=', 'audio')]}">
+                    <i class="fa fa-align-justify fa-4x" role="img" aria-label="Audio" title="Audio"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="survey_user_input_line_form">
+        <field name="name">survey_user_input_line_form</field>
+        <field name="model">survey.user_input_line</field>
+        <field name="inherit_id" ref="survey.survey_user_input_line_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group[1]" position="inside">
+                <field name="answer_type" invisible="1"/>
+                <field name="value_gps" colspan='2' attrs="{'invisible': [('answer_type','!=','gps')]}"/>
+                <field name="value_audio" colspan='2' attrs="{'invisible': [('answer_type','!=','audio')]}"/>
+            </xpath>
+        </field>
+    </record>
+</data>
+</odoo>
