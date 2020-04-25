@@ -2,6 +2,7 @@
 <odoo>
     <template id="assets_frontend" name="Survey assets" inherit_id="survey.survey_assets">
         <xpath expr="script[last()]" position="after">
+            <script type="text/javascript" src="/survey_asl_question/static/src/js/recorderjs/recorder.js"></script>
             <script type="text/javascript" src="/survey_asl_question/static/src/js/main.js"></script>
         </xpath>
     </template>
