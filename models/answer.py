@@ -75,8 +75,8 @@ class SurveyUserInputLine(models.Model):
             'skipped': False
         }
         if answer_tag in post and post[answer_tag].strip():
-            # TODO
             vals.update({'answer_type': 'audio',
+                         'audio_file_name': question.audio_file_name + ".wav",
                          'value_audio': post[answer_tag]})
         else:
             vals.update({'answer_type': None, 'skipped': True})

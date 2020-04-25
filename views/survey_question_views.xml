@@ -17,6 +17,10 @@
                     <i class="fa fa-align-justify fa-4x" role="img" aria-label="Audio" title="Audio"/>
                 </div>
             </xpath>
+            <xpath expr="//field[@name='constr_mandatory']" position="after">
+                <field name="audio_file_name" attrs="{'invisible': [('type', '!=', 'audio')]}"/>
+                <field name="audio_duration" attrs="{'invisible': [('type', '!=', 'audio')]}"/>
+            </xpath>
         </field>
     </record>
 
@@ -29,8 +33,8 @@
             <xpath expr="//sheet/group[1]" position="inside">
                 <field name="answer_type" invisible="1"/>
                 <field name="value_gps" colspan='2' attrs="{'invisible': [('answer_type','!=','gps')]}"/>
-                <field name="audio_file_name" invesible="1"/>
-                <field name="value_audio" widget="binary" name="audio_file" filename="audio_file_name" colspan='2' attrs="{'invisible': [('answer_type','!=','audio')]}"/>
+                <field name="audio_file_name" invisible="1"/>
+                <field name="value_audio" widget="binary" filename="audio_file_name" colspan='2' attrs="{'invisible': [('answer_type','!=','audio')]}"/>
             </xpath>
         </field>
     </record>

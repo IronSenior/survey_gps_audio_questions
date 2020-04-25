@@ -17,6 +17,15 @@ class SurveyQuestion(models.Model):
         ('gps', 'GPS'),
         ('audio', "Record Audio")], string='Question Type')
 
+    audio_duration = fields.Integer(
+        string="Recording duration (Miliseconds)",
+        default="1000"
+    )
+    audio_file_name = fields.Char(
+        string="Audio filename",
+        default="Audiofile"
+    )
+
     def validate_gps(self, post, answer_tag):
         self.ensure_one()
         errors = {}
