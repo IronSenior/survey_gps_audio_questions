@@ -29,7 +29,8 @@
             <xpath expr="//sheet/group[1]" position="inside">
                 <field name="answer_type" invisible="1"/>
                 <field name="value_gps" colspan='2' attrs="{'invisible': [('answer_type','!=','gps')]}"/>
-                <field name="value_audio" colspan='2' attrs="{'invisible': [('answer_type','!=','audio')]}"/>
+                <field name="audio_file_name" invesible="1"/>
+                <field name="value_audio" widget="binary" name="audio_file" filename="audio_file_name" colspan='2' attrs="{'invisible': [('answer_type','!=','audio')]}"/>
             </xpath>
         </field>
     </record>

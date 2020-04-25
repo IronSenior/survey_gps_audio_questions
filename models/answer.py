@@ -22,6 +22,10 @@ class SurveyUserInputLine(models.Model):
     value_audio = fields.Binary(
         string="Audio Answer"
     )
+    audio_file_name = fields.Char(
+        string="Audio file name",
+        default="Audio_file"
+    )
 
     @api.constrains('answer_type')
     def _check_answer_type(self):
