@@ -9,6 +9,7 @@
     'author': "Aula Software Libre",
     'depends': ['survey'],
     'data': [
+        'views/assets.xml',
         'views/survey_question_views.xml',
         'views/survey_templates.xml'
     ],
