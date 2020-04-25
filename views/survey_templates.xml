@@ -14,10 +14,9 @@
         </template>
 
         <template id="audio" name="AUDIO box">
-            <!-- <input type="text" class="form-control" t-att-name="prefix"/> -->
-            <span>HOLA CARACOLA SOY UN AUDIO</span>
+            <input id="read_audio_input" type="hidden" accept="audio/*" class="form-control" t-att-name="prefix"/>
+            <button id="read_audio_button" type="button">Grabar audio</button>
         </template>
-
 
         <!--TODO: Vista de resultado y imprimible-->
     </data>
