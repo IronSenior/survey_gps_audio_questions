@@ -9,9 +9,28 @@
         </template>
 
         <template id="gps" name="GPS box">
-            <input id="response_gps_button" type="hidden" class="form-control" t-att-name="prefix"/>
-            <button id="read_gps_button" type="button">Enviar posición GPS</button>
-            <div class="js_infozone alert alert-success" style="display:none;" role="alert"></div>
+        <t t-set="google_maps_api_key" t-value="request.env['ir.config_parameter'].sudo().get_param('survey_asl_question.google_api_key')"/>
+            <div class="card gps mb-3">
+                <div class="row no-gutters">
+                    <div class="col-lg-6">
+                        <div class="card-body">
+                            <h5 class="card-title">Posición GPS</h5>
+                            <p class="card-text">
+                            Pulse en "Enviar posición GPS" para que podamos ubicar la zona donde vive. El
+                            navegador le solicitará autorización.
+                            </p>
+                            <div id="aulasl_gps_alert" class="alert" style="display:none;" role="alert"></div>
+                        </div>
+                        <div class="card-body">
+                            <input id="aulasl_gps_input" type="hidden" class="form-control" t-att-name="prefix"/>
+                            <button id="aulasl_gps_button" type="button" class="btn btn-secondary">Enviar posición GPS</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <img id="aulasl_gps_map" class="img-fluid float-right" t-att-data-google_api_key="google_maps_api_key" />
+                    </div>
+                </div>
+            </div>
         </template>
 
         <template id="audio" name="AUDIO box">

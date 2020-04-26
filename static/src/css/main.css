@@ -1,0 +1,13 @@
+.alert,
+.js_question-wrapper {
+  margin-top: 24px;
+  margin-bottom: 0;
+}
+
+p {
+  margin: 0.1rem 0;
+}
+
+#aulasl_gps_map {
+  width: 100%;
+}

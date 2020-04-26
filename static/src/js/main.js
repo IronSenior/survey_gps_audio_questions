@@ -15,6 +15,23 @@ odoo.define("survey_asl_question.survey", function (require) {
     return this;
   };
 
+  $.fn.message = function (callback) {
+    if (this.length) {
+      const [message, isError] = arguments;
+
+      if (isError) {
+        this.removeClass("alert-success").addClass("alert-danger");
+      } else {
+        this.removeClass("alert-danger").addClass("alert-success");
+      }
+
+      this.text(message);
+      this.show();
+    }
+
+    return this;
+  };
+
   var recorder;
   var recordAudioButton;
   var recordAudioInput;
@@ -26,31 +43,49 @@ odoo.define("survey_asl_question.survey", function (require) {
     recordAudioButton.addEventListener("click", recordAudio);
   }
 
-  $("#read_gps_button").exists(function () {
+  $("#aulasl_gps_button").exists(function () {
     if (!navigator.geolocation) {
-      $(".js_errzone")
-        .text(
-          "Su navegador no soporta Geolocalización en este dispositivo. Inténtelo con otro"
-        )
-        .show();
+      $("#aulasl_gps_alert").message(
+        "Su navegador no soporta Geolocalización en este dispositivo. Inténtelo con otro",
+        true
+      );
 
       return;
     }
 
     const success = function (location) {
-      $("#response_gps_button").val(
+      $("#aulasl_gps_input").val(
         `${location.coords.latitude},${location.coords.longitude},${location.coords.accuracy}`
       );
 
-      $(".js_infozone").text("Posicionado").show();
+      $("#aulasl_gps_alert").message("Posicionado");
+
+      const mapImage = $("#aulasl_gps_map");
+      const apiKey = mapImage.data("google_api_key");
+
+      if (!apiKey) {
+        return;
+      }
+
+      const mapSource =
+        "https://maps.googleapis.com/maps/api/staticmap?" +
+        `center=${location.coords.latitude},${location.coords.longitude}` +
+        `&markers=${location.coords.latitude},${location.coords.longitude}` +
+        "&zoom=16&size=800x400&sensor=false" +
+        `&key=${apiKey}`;
+
+      mapImage.attr("src", mapSource);
     };
 
     const error = function () {
-      $(".js_errzone").text("No ha sido posible ubicar el dispositivo").show();
+      $("#aulasl_gps_alert").message(
+        "No ha sido posible ubicar el dispositivo",
+        true
+      );
     };
 
     this.click(function () {
-      $(".js_infozone").text("Posicionando...").show();
+      $("#aulasl_gps_alert").message("Posicionando...");
 
       navigator.geolocation.getCurrentPosition(success, error);
     });
