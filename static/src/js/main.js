@@ -7,31 +7,54 @@ odoo.define("survey_asl_question.survey", function (require) {
 
   var _t = core._t;
 
-  var readGPSButton;
+  $.fn.exists = function (callback) {
+    if (this.length) {
+      var args = [].slice.call(arguments, 1);
+      callback.call(this, args);
+    }
+    return this;
+  };
+
   var recorder;
   var recordAudioButton;
   var recordAudioInput;
+  var recordDuration;
 
-  $(document).ready(function () {
-    readGPSButton = document.getElementById("read_gps_button");
-    if (readGPSButton) {
-      readGPSButton.addEventListener("click", readGPS);
-    }
-
-    recordAudioButton = document.getElementById("read_audio_button");
-    recordAudioInput = document.getElementById("read_audio_input");
-    if (recordAudioButton && recordAudioInput) {
-      recordAudioButton.addEventListener("click", recordAudio);
-    }
-  });
-
-  function readGPS() {
-    navigator.geolocation.getCurrentPosition(function (location) {
-      var input = document.getElementById("response_gps_button");
-
-      input.value = `${location.coords.latitude},${location.coords.longitude},${location.coords.accuracy}`;
-    });
+  recordAudioButton = document.getElementById("read_audio_button");
+  recordAudioInput = document.getElementById("read_audio_input");
+  if (recordAudioButton && recordAudioInput) {
+    recordAudioButton.addEventListener("click", recordAudio);
   }
+
+  $("#read_gps_button").exists(function () {
+    if (!navigator.geolocation) {
+      $(".js_errzone")
+        .text(
+          "Su navegador no soporta Geolocalización en este dispositivo. Inténtelo con otro"
+        )
+        .show();
+
+      return;
+    }
+
+    const success = function (location) {
+      $("#response_gps_button").val(
+        `${location.coords.latitude},${location.coords.longitude},${location.coords.accuracy}`
+      );
+
+      $(".js_infozone").text("Posicionado").show();
+    };
+
+    const error = function () {
+      $(".js_errzone").text("No ha sido posible ubicar el dispositivo").show();
+    };
+
+    this.click(function () {
+      $(".js_infozone").text("Posicionando...").show();
+
+      navigator.geolocation.getCurrentPosition(success, error);
+    });
+  });
 
   function saveAudio(blob) {
     var url = URL.createObjectURL(blob);

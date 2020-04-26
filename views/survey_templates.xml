@@ -11,6 +11,7 @@
         <template id="gps" name="GPS box">
             <input id="response_gps_button" type="hidden" class="form-control" t-att-name="prefix"/>
             <button id="read_gps_button" type="button">Enviar posición GPS</button>
+            <div class="js_infozone alert alert-success" style="display:none;" role="alert"></div>
         </template>
 
         <template id="audio" name="AUDIO box">
