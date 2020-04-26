@@ -73,8 +73,22 @@ odoo.define("survey_asl_question.survey", function (require) {
     recorder.exportWAV(saveAudio);
   }
 
+  function recordCountdown(time) {
+    if (time <= 0) {
+      $(".js_infozone").hide();
+
+      return;
+    }
+
+    $(".js_infozone").show();
+    $(".js_infozone").text(`Quedan ${time / 1000} segundos`);
+
+    setTimeout(recordCountdown.bind(null, time - 1000), 1000);
+  }
+
   function recordAudio() {
     recordAudioButton.disabled = true;
+    recordDuration = $("#read_audio_input").data("audio_duration");
 
     navigator.mediaDevices
       .getUserMedia({ audio: true, video: false })
@@ -84,7 +98,8 @@ odoo.define("survey_asl_question.survey", function (require) {
         recorder = new Recorder(input, { numChannels: 1 });
         recorder.record();
 
-        setTimeout(stopRecordAudio.bind(null, stream), 3000);
+        setTimeout(stopRecordAudio.bind(null, stream), recordDuration);
+        setTimeout(recordCountdown.bind(null, recordDuration), 0);
       })
       .catch(function (err) {
         recordAudioButton.disabled = false;

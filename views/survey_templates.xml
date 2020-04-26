@@ -15,8 +15,9 @@
         </template>
 
         <template id="audio" name="AUDIO box">
-            <input id="read_audio_input" type="hidden" accept="audio/*" class="form-control" t-att-name="prefix"/>
+            <input id="read_audio_input" type="hidden" accept="audio/*" class="form-control" t-att-name="prefix" t-att-data-audio_duration="question.audio_duration"/>
             <button id="read_audio_button" type="button">Grabar audio</button>
+            <div class="js_infozone alert alert-success" style="display:none;" role="alert"></div>
         </template>
 
         <!--TODO: Vista de resultado y imprimible-->
