@@ -11,7 +11,8 @@
     'data': [
         'views/assets.xml',
         'views/survey_question_views.xml',
-        'views/survey_templates.xml'
+        'views/survey_templates.xml',
+        'views/res_config_views.xml'
     ],
     'images': [],
     'installable': True,
